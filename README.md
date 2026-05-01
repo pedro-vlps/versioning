@@ -29,8 +29,10 @@ When you run `.\scripts\git_version.ps1`, the script executes the following step
    - It obtains the latest tag from Git using `git describe --tags --abbrev=0`.
    - For an initial version, it sets `0.0.1`; otherwise it parses the latest tag, increments the major, minor, or patch number according to the chosen version type, and constructs a new version string.
    - It creates a tag name prefixed with `v`.
+   - It updates the version in `pyproject.toml` (if the file exists) and `package.json` (if the file exists), preserving UTF-8 encoding without BOM.
    - It prompts the user to enter changelog notes line by line until an empty line is entered.
-   - It updates or creates `CHANGELOG.md` by prepending a new section for the new version and the entered notes.
+   - It updates or creates `CHANGELOG.md` by prepending a new section for the new version and the entered notes, preserving UTF-8 encoding without BOM.
+   - It stages only `CHANGELOG.md`, `pyproject.toml` (if exists), and `package.json` (if exists) for the changelog commit.
    - It commits the changelog update, creates the Git tag, and pushes the new tag to the remote origin.
 8. Finally, the script pushes the current branch to the remote repository with `git push`.
 
